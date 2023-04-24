@@ -1,6 +1,6 @@
 var express = require('express')
 var cors = require('cors')
-const mysql = require('mysql2');
+const mysql = require('mysql2')
 require('dotenv').config()
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
@@ -74,5 +74,5 @@ app.delete('/users', function (req, res, next) {
 })
 
 app.listen(5000, function () {
-  console.log('CORS-enabled web server listening on port 5000_Hello')
+  console.log('CORS-enabled web server listening on port 5000')
 })

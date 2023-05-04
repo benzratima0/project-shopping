@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2023 at 01:42 PM
+-- Generation Time: May 04, 2023 at 10:46 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `projectshopping`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `ID` int(11) NOT NULL,
+  `NameProduct` varchar(255) NOT NULL,
+  `Description` varchar(255) NOT NULL,
+  `Picture` text NOT NULL,
+  `Price` varchar(255) NOT NULL,
+  `Quantity` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`ID`, `NameProduct`, `Description`, `Picture`, `Price`, `Quantity`) VALUES
+(1, 'หูฟัง', 'หูฟัง', 'D:/csc350 6401679 Napak/react-crud/src/img/adam-birkett-vISNAATFXlE-unsplash.jpg', '1200', '10');
 
 -- --------------------------------------------------------
 
@@ -53,6 +75,12 @@ INSERT INTO `users` (`id`, `Email`, `Password`, `Firstname`, `Lastname`, `Gender
 --
 
 --
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -61,6 +89,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

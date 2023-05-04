@@ -73,6 +73,69 @@ app.delete('/users', function (req, res, next) {
   );
 })
 
+app.get('/product', function (req, res, next) {
+  connection.query(
+    'SELECT * FROM `product` ',
+    function(err, results, fields) {
+      res.json(results);
+      console.log(results); // results contains rows returned by server
+      console.log(fields); // fields contains extra meta data about results, if available
+    }
+  );
+  })
+  
+  app.get('/product', function (req, res, next) {
+    connection.query(
+        'SELECT * FROM `product`',
+        function (err, results, fields) {
+            res.json(results);
+        }
+    );
+  })
+  
+  app.get('/product/:ID', function (req, res, next) {
+    const id = req.params.ID;
+    connection.query(
+        'SELECT * FROM `product` WHERE `ID` = ?',
+        [id],
+        function (err, results) {
+            res.json(results);
+        }
+    );
+  })
+  
+  app.post('/product', function (req, res, next) {
+    connection.query(
+        'INSERT INTO `product`(`NameProduct`,`Description`,`Picture`,`Price`,`Quantity`) VALUES (?, ?, ?, ?, ?)',
+        [req.body.NameProduct, req.body.Description, req.body.Picture, req.body.Price, req.body.Quantity],
+        function (err, results) {
+            res.json(results);
+            console.log(err)
+            console.log(results)
+        }
+    );
+  })
+  
+  app.put('/product', function (req, res, next) {
+    connection.query(
+        'UPDATE `product` SET `NameProduct`=?,`Description`=?,`Picture`=?,`Price`=?,`Quantity`=? WHERE ID = ?',
+        [req.body.NameProduct, req.body.Description, req.body.Picture, req.body.Price, req.body.Quantity, req.body.ID],
+        function (err, results) {
+            res.json(results);
+        }
+    );
+  })
+  
+  app.delete('/product', function (req, res, next) {
+    connection.query(
+        'DELETE FROM `product` WHERE ID = ?',
+        [req.body.ID],
+        function (err, results) {
+            res.json(results);
+        }
+    );
+  })
+
 app.listen(5000, function () {
   console.log('CORS-enabled web server listening on port 5000')
 })

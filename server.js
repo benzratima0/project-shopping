@@ -3,6 +3,7 @@ var cors = require('cors')
 const mysql = require('mysql2')
 const secret = 'Fullstack-Login-2021'
 require('dotenv').config()
+var jwt = require('jsonwebtoken');
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 console.log('Connected to PlanetScale!')
@@ -56,7 +57,7 @@ app.post('/users', function (req, res, next) {
 
 app.post('/users', function (req, res, next) {
   connection.execute(
-      'SELECT*FROM `users`WHERE Email=?',
+      'SELECT * FROM `users` WHERE Email=?',
       [req.body.Email],
       function (err, users,fields) {
         if(err){res.json({status:'error',message: err}); return }

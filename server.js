@@ -1,6 +1,7 @@
 var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2')
+const secret = 'Fullstack-Login-2021'
 require('dotenv').config()
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
@@ -55,14 +56,15 @@ app.post('/users', function (req, res, next) {
 
 app.post('/users', function (req, res, next) {
   connection.execute(
-      'INSERT INTO `users`WHERE Email=?',
+      'SELECT*FROM `users`WHERE Email=?',
       [req.body.Email],
       function (err, users,fields) {
         if(err){res.json({status:'error',message: err}); return }
         if(users.length == 0){res.json({status:'error',message:'no user found'}); return }
         bcrypt.compare(req.body.Password,users[0].Password,function(err,isLogin){
           if(isLogin){
-            res.json({status: 'ok',message: 'Login success'})
+            var token = jwt.sign({Email: users[0].Email, secret})
+            res.json({status: 'ok',message: 'Login success',token})
           }else{
             res.json({status: 'error',message: 'Login failed'})
           }

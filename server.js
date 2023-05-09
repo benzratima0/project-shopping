@@ -53,6 +53,25 @@ app.post('/users', function (req, res, next) {
   );
 })
 
+app.post('/login', function (req, res, next) {
+  connection.execute(
+      'INSERT INTO `users`WHERE Email=?',
+      [req.body.Email],
+      function (err, users,fields) {
+        if(err){res.json({status:'error',message: err}); return }
+        if(users.length == 0){res.json({status:'error',message:'no user found'}); return }
+        bcrypt.compare(req.body.Password,users[0].Password,function(err,isLogin){
+          if(isLogin){
+            res.json({status: 'ok',message: 'Login success'})
+          }else{
+            res.json({status: 'error',message: 'Login failed'})
+          }
+
+        });
+      }
+  );
+})
+
 app.put('/users', function (req, res, next) {
   connection.query(
       'UPDATE `users` SET `Email`= ?, `Password`= ?, `Firstname`= ?, `Lastname`= ?, `Gender`= ? WHERE id = ?',

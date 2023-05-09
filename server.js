@@ -2,8 +2,11 @@ var express = require('express')
 var cors = require('cors')
 const mysql = require('mysql2')
 const secret = 'Fullstack-Login-2021'
+const bcrypt = require('bcrypt')
 require('dotenv').config()
 var jwt = require('jsonwebtoken');
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 console.log('Connected to PlanetScale!')

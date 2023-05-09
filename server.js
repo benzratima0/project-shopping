@@ -53,7 +53,7 @@ app.post('/users', function (req, res, next) {
   );
 })
 
-app.post('/users/login', function (req, res, next) {
+app.post('/users', function (req, res, next) {
   connection.execute(
       'INSERT INTO `users`WHERE Email=?',
       [req.body.Email],
